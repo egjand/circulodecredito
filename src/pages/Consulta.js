@@ -1,7 +1,6 @@
-import {useState} from 'react'
+import React, { useState } from 'react'
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-import { Link } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
@@ -9,8 +8,9 @@ import Container from '@material-ui/core/Container';
 import Controls from '../components/controls/Controls';
 import Genero from '../components/Genero';
 import Estado from '../components/EstadoCivil';
-import DateRangeIcon from '@material-ui/icons/DateRange';
-import Calendar from 'react-calendar';
+import Button from '../components/controls/Button';
+import DatosUsuario from './DatosUsuario';
+import { useEffect } from 'react';
 
 const useStyles = makeStyles(theme => ({
    paper: {
@@ -32,102 +32,326 @@ const useStyles = makeStyles(theme => ({
    }
 }));
 
-export default function Consulta() {
+
+
+export default function Consulta({ value = 0 }) {
+   const [paso, setPaso] = useState(value)
+   const [Activo, setActivo] = useState(false);
+   const [FormState, setFormState] = useState({
+      primer_nombre: "",
+      segundo_nombre: "",
+      apellido_paterno: "",
+      apellido_materno: "",
+      fecha_nacimiento: "",
+      calle: "",
+      numero_exterior: "",
+      numero_interior: "",
+      codigo_postal: "",
+      telefono_cel: "",
+      colonia: "",
+      municipio: "",
+      ciudad: "",
+      estado: ""
+   })
+
+   const { primer_nombre, segundo_nombre, apellido_paterno, apellido_materno, fecha_nacimiento, calle, numero_exterior, numero_interior,
+      codigo_postal, telefono_cel, colonia, municipio, ciudad, estado } = FormState;
    const classes = useStyles();
-   const [value, onChange] = useState(new Date());
+
+
+
+   useEffect(() => {
+      console.log('aqui estoy');
+   }, []);
+
+   const previous = (e) => {
+
+      setPaso(paso - 1);
+
+   }
+   const next = (e) => {
+
+      setPaso(paso + 1);
+
+   }
+
+   const handleInputChange = ({ target }) => {
+console.log(target.name);
+console.log(target.value);
+      setFormState({
+         ...FormState,
+         [target.name]: target.value
+      });
+
+   }
+
+
+   const BotonActivo = () => {
+      setActivo(Activo === !false)
+   }
+
 
    return (
       <Container component='main' maxWidth='xs'>
          <div className={classes.paper}>
-            <Typography component='h1' variant='h5'>
-               Datos del solicitante
-            </Typography>
             <form className={classes.form} noValidate>
-               <Grid container spacing={2}>
-                  <Grid item xs={12} sm={6}>
-                     <Controls.Input
-                        autoComplete='fname'
-                        name='firstName'
-                        required
-                        fullWidth
-                        id='primer_nombre'
-                        label='Primer Nombre'
-                        variant='standard'
-                        autoFocus
-                     />
-                  </Grid>
-                  <Grid item xs={12} sm={6}>
-                     <Controls.Input
-                        required
-                        fullWidth
-                        id='lastName'
-                        label='Segundo Nombre'
-                        name='lastName'
-                        variant='standard'
-                        autoComplete='lname'
-                     />
-                  </Grid>
-                  <Grid item xs={12} sm={6}>
-                     <Controls.Input
-                        required
-                        fullWidth
-                        id='apellido_paterno'
-                        label='Apellido Paterno'
-                        name='paterno'
-                        variant='standard'
-                        autoComplete='lname'
-                     />
-                  </Grid>
-                  <Grid item xs={12} sm={6}>
-                     <Controls.Input
-                        required
-                        fullWidth
-                        id='apellido_materno'
-                        label='Apellido Materno'
-                        name='materno'
-                        variant='standard'
-                        autoComplete='lname'
-                     />
-                  </Grid>
-                  <Genero/>
-                  <Estado/>
-                  <Calendar
-                   onChange={onChange}
-                   value={value}/>
-                  <Grid item xs={12}>
-                     <Controls.Input
-                        required
-                        fullWidth
-                        id='fecha_nacimiento'
-                        label='Fecha de Nacimiento'
-                        name='Fnacimiento'
-                        variant='standard'
-                        autoComplete='email'
-                     />
-                  </Grid><DateRangeIcon/>
-                  
-                  <Grid item xs={12}>
-                     <FormControlLabel
-                        control={
-                           <Checkbox value='allowExtraEmails' color='primary' />
-                        }
-                        label='I want to receive inspiration, marketing promotions and updates via email.'
-                     />
-                  </Grid>
-               </Grid>
-               <Controls.Button
-                  type='submit'
-                  fullWidth
-                  variant='contained'
-                  text='Sign Up'
-               />
-               <Grid container justifyContent='flex-end'>
-                  <Grid item>
-                     <Typography component={Link} to='/login' variant='p'>
-                        Already have an account? Sign in
+
+               {paso === 0 &&
+                  <div>
+                     <Typography component='h1' variant='h5'>
+                        Datos del solicitante
                      </Typography>
-                  </Grid>
-               </Grid>
+                     <Grid container spacing={2}>
+                        <Grid item xs={12} sm={6}>
+                           <Controls.Input
+                              type="text"
+                              className="form-control"
+                              autoComplete="nombre"
+                              name="primer_nombre"
+                              required
+                              fullWidth
+                              label="Primer Nombre"
+                              variant="standard"
+                              value={primer_nombre}
+                              onChange={handleInputChange}
+                              autoFocus
+                           />
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                           <Controls.Input
+                              type="text"
+                              className="form-control"
+                              autoComplete="segundo Nombre"
+                              fullWidth
+                              label='Segundo Nombre'
+                              name='segundo_nombre'
+                              variant='standard'
+                              value={segundo_nombre}
+                              onChange={handleInputChange}
+                           />
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                           <Controls.Input
+                              type="text"
+                              className="form-control"
+                              required
+                              fullWidth
+                              label='Apellido Paterno'
+                              name='apellido_paterno'
+                              variant='standard'
+                              autoComplete='Apellido'
+                              value={apellido_paterno}
+                              onChange={handleInputChange}
+                           />
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                           <Controls.Input
+                              type="text"
+                              className="form-control"
+                              required
+                              fullWidth
+                              name="apellido_materno"
+                              label='Apellido Materno'
+                              variant='standard'
+                              autoComplete='Apellido'
+                              value={apellido_materno}
+                              onChange={handleInputChange}
+                           />
+                        </Grid>
+                        <Genero />
+                        <Estado />
+
+                        <Grid item xs={12}>
+                           <Controls.Input
+                              type="text"
+                              className="form-control"
+                              required
+                              fullWidth
+                              name='fecha_nacimiento'
+                              label='Fecha de Nacimiento'
+                              variant='standard'
+                              autoComplete='email'
+                              value={fecha_nacimiento}
+                              onChange={handleInputChange}
+                           />
+                        </Grid>
+
+
+                     </Grid>
+                  </div>
+               }
+               {paso === 1 &&
+                  <div>
+                     <Typography component='h1' variant='h5'>
+                        Dirección
+                     </Typography>
+                     <Grid container spacing={2}>
+                        <Grid item xs={12} sm={6}>
+                           <Controls.Input
+                              type="text"
+                              className="form-control"
+                              autoComplete='calle'
+                              required
+                              fullWidth
+                              name='calle'
+                              label='Calle'
+                              variant='standard'
+                              autoFocus
+                              value={calle}
+                              onChange={handleInputChange}
+                           />
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                           <Controls.Input
+                              type="text"
+                              className="form-control"
+                              autoComplete='numeroext'
+                              name='numero_exterior'
+                              label='Numero Exterior'
+                              variant='standard'
+                              autoFocus
+                              value={numero_exterior}
+                              onChange={handleInputChange}
+                           />
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                           <Controls.Input
+                              type="text"
+                              className="form-control"
+                              autoComplete='numeroint'
+                              name='numero_interior'
+                              label='Numero Interior'
+                              variant='standard'
+                              autoFocus
+                              value={numero_interior}
+                              onChange={handleInputChange}
+                           />
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                           <Controls.Input
+                              type="text"
+                              className="form-control"
+                              autoComplete='codigo'
+                              required
+                              fullWidth
+                              name='codigo_postal'
+                              label='Codigo Postal'
+                              variant='standard'
+                              autoFocus
+                              value={codigo_postal}
+                              onChange={handleInputChange}
+                           />
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                           <Controls.Input
+                              type="text"
+                              className="form-control"
+                              autoComplete='telefono'
+                              required
+                              fullWidth
+                              name='telefono_cel'
+                              label='Telefono Celular'
+                              variant='standard'
+                              autoFocus
+                              value={telefono_cel}
+                              onChange={handleInputChange}
+                           />
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                        <Controls.Input
+                              type="text"
+                              className="form-control"
+                              autoComplete='col'
+                              required
+                              fullWidth
+                              name='colonia'
+                              label='Colonia'
+                              variant='standard'
+                              autoFocus
+                              value={colonia}
+                              onChange={handleInputChange}
+                           />
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                        <Controls.Input
+                              type="text"
+                              className="form-control"
+                              required
+                              fullWidth
+                              name='municipio'
+                              label='Municipio'
+                              variant='standard'
+                              autoFocus
+                              value={municipio}
+                              onChange={handleInputChange}
+                           />
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                        <Controls.Input
+                              type="text"
+                              className="form-control"
+                              required
+                              fullWidth
+                              name='ciudad'
+                              label='Ciudad'
+                              variant='standard'
+                              autoFocus
+                              value={ciudad}
+                              onChange={handleInputChange}
+                           />
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                        <Controls.Input
+                              type="text"
+                              className="form-control"
+                              required
+                              fullWidth
+                              name='estado'
+                              label='Estado'
+                              variant='standard'
+                              autoFocus
+                              value={estado}
+                              onChange={handleInputChange}
+                           />
+                        </Grid>
+                     </Grid>
+                  </div>
+               }
+               {paso === 2 &&
+                  <div>
+                     <Grid item xs={12}>
+                        <FormControlLabel
+                           control={
+                              <Checkbox value='allowExtraEmails' color='primary' />
+                           }
+                           label='Este es un mensaje de prueba para los terminos y condiciones'
+                        />
+                     </Grid>
+                  </div>
+               }
+               {paso === 3 &&
+                  <DatosUsuario />
+               }
+
+
+               <Button
+                  disableElevation
+                  onClick={previous}
+                  type='button'
+                  variant='contained'
+                  text='Anterior'
+               />
+
+
+               <Button
+                  disabled={!BotonActivo}
+                  disableElevation
+                  onClick={next}
+                  type='button'
+                  variant='contained'
+                  text='Siguiente'
+               />
+
             </form>
          </div>
       </Container>

@@ -1,16 +1,7 @@
 import React, { useState } from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import {
-   Button,
-   AppBar,
-   Toolbar,
-   Typography,
-   IconButton,
-   Drawer,
-   List,
-   ListItem,
-   ListItemText,
-   CssBaseline
+CssBaseline
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
@@ -32,9 +23,6 @@ const useStyles = makeStyles(theme => ({
          easing: theme.transitions.easing.easeOut,
          duration: theme.transitions.duration.enteringScreen
       })
-   },
-   drawer: {
-      width: drawerWidth
    },
    content: {
       padding: theme.spacing(3),
@@ -58,20 +46,6 @@ export default withRouter(({ history, children }) => {
    return (
       <div>
          <CssBaseline />
-         <Drawer
-            open={open}
-            onClose={() => setOpen(false)}
-            variant='persistent'>
-            <List disablePadding className={classes.drawer}>
-               <ListItem button>
-                  <ListItemText primary='First Item' />
-               </ListItem>
-               <ListItem button>
-                  <ListItemText primary='Second Item' />
-               </ListItem>
-            </List>
-         </Drawer>
-
          <Header
             classnames={classNames(classes.appBar, {
                [classes.appBarShift]: open

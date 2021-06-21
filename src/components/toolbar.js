@@ -1,35 +1,19 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import logopng from '../img/logo/logo.jpg';
 import {
    AppBar,
    Toolbar,
    Grid,
-   InputBase,
-   IconButton,
-   Badge,
    makeStyles,
-   Button,
-   Tabs,
-   Tab
 } from '@material-ui/core';
-import NotificationsNoneIcon from '@material-ui/icons/NotificationsNone';
-import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline';
-import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
-import HomeIcon from '@material-ui/icons/Home';
-import SchoolIcon from '@material-ui/icons/School';
-import SearchIcon from '@material-ui/icons/Search';
-import AddCircleIcon from '@material-ui/icons/AddCircle';
-import MenuIcon from '@material-ui/icons/Menu';
-import LockOpenIcon from '@material-ui/icons/LockOpen';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import EnhancedEncryptionIcon from '@material-ui/icons/EnhancedEncryption';
-import { Link, withRouter } from 'react-router-dom';
-import Typography from '@material-ui/core/Typography';
+import { withRouter } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../redux/actions/auth-action';
 
 const useStyles = makeStyles(theme => ({
-   menuButton: {
-      marginRight: theme.spacing(2)
+   logo: {
+      width: '15%',
+
    },
    title: {
       marginRight: 'auto'
@@ -73,7 +57,7 @@ const useStyles = makeStyles(theme => ({
    }
 }));
 
-const routes = [
+/* const routes = [
    {
       label: 'Home',
       forUser: true,
@@ -111,46 +95,28 @@ const routes = [
       icon: <EnhancedEncryptionIcon />
    }
 ];
-
+ */
 const Menu = withRouter(({ history, classnames, open, setOpen }) => {
    const classes = useStyles();
-   const { isLogged } = useSelector(s => s.auth.user);
    const dispatch = useDispatch();
-   const [value, setValue] = useState(0);
-
-   const onChange = (e, value) => {
-      setValue(value);
-   };
-
-   const logOutHandler = () => {
-      dispatch(
-         logout(
-            {
-               email: 'abd',
-               password: 'iiii'
-            },
-            'token'
-         )
-      );
-   };
    //correcting acitve tabs on refreshing
-   useEffect(() => {
+   /* useEffect(() => {
       const path = history.location.pathname;
       const getIndex = routes.findIndex(item => item.path === path);
       setValue(getIndex);
-   }, []);
+   }, []); */
 
    return (
       <AppBar position='static' color='secondary' className={classnames}>
          <Toolbar>
-            <IconButton
+            {/* <IconButton
                color='inherit'
                edge='start'
                className={classes.menuButton}
                onClick={() => setOpen(!open)}>
                <MenuIcon />
-            </IconButton>
-
+            </IconButton> */}
+            <img src={logopng} className={classes.logo}/>
             <Grid
                container
                spacing={3}
@@ -158,13 +124,13 @@ const Menu = withRouter(({ history, classnames, open, setOpen }) => {
                justify='flex-end'
                alignItems='center'>
                <Grid item>
-                  <InputBase
+                  {/* <InputBase
                      placeholder='Search topics'
                      className={classes.searchInput}
                      startAdornment={<SearchIcon fontSize='small' />}
-                  />
+                  /> */}
                </Grid>
-               <Grid item>
+               {/* <Grid item>
                   <Tabs value={value} onChange={onChange}>
                      {routes // ! filter all private tabs for users if logged in
                         .filter(route =>
@@ -183,7 +149,7 @@ const Menu = withRouter(({ history, classnames, open, setOpen }) => {
                         ))}
                   </Tabs>
                </Grid>
-               {/* <Grid item>
+                */}{/* <Grid item>
                   <IconButton aria-label='Home' style={isActive(history, '/')}>
                      <HomeIcon />
                   </IconButton>

@@ -11,10 +11,6 @@ const themeObj = {
          main: '#2b384e',
          light: '#f8324526'
       }
-      /* ,
-       background: {
-          default: '#0e1d36'
-       } */
    },
 
    typography: {
@@ -102,10 +98,10 @@ const useToggleTheme = () => {
          ...theme,
          palette: {
             ...theme.palette,
-            type: type === 'light' ? 'dark' : 'light'
+            type: type === 'dark' ? 'light' : 'light'
          },
          overrides:
-            type === 'light'
+            type === 'dark'
                ? {
                     MuiCssBaseline: {
                        '@global': {

@@ -48,9 +48,9 @@ export default function Estado() {
         >
           <MenuItem value={10}>Soltero/a</MenuItem>
           <MenuItem value={20}>Casado/a</MenuItem> 
-          <MenuItem value={20}>Divorciado/a</MenuItem>
-          <MenuItem value={20}>Viudo/a</MenuItem>
-          <MenuItem value={20}>Union Libre</MenuItem>    
+          <MenuItem value={30}>Divorciado/a</MenuItem>
+          <MenuItem value={40}>Viudo/a</MenuItem>
+          <MenuItem value={50}>Union Libre</MenuItem>    
         </Select>
       </FormControl>
     </div>
