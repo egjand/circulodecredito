@@ -34,9 +34,9 @@ const useStyles = makeStyles(theme => ({
 
 
 
-export default function Consulta({ value = 0 }) {
+export default function Consulta({ value = 0 }, props) {
    const [paso, setPaso] = useState(value)
-   const [Activo, setActivo] = useState(false);
+
    const [FormState, setFormState] = useState({
       primer_nombre: "",
       segundo_nombre: "",
@@ -51,7 +51,7 @@ export default function Consulta({ value = 0 }) {
       colonia: "",
       municipio: "",
       ciudad: "",
-      estado: ""
+      estado: "",
    })
 
    const { primer_nombre, segundo_nombre, apellido_paterno, apellido_materno, fecha_nacimiento, calle, numero_exterior, numero_interior,
@@ -61,7 +61,7 @@ export default function Consulta({ value = 0 }) {
 
 
    useEffect(() => {
-      console.log('aqui estoy');
+
    }, []);
 
    const previous = (e) => {
@@ -74,10 +74,10 @@ export default function Consulta({ value = 0 }) {
       setPaso(paso + 1);
 
    }
+   
 
    const handleInputChange = ({ target }) => {
-console.log(target.name);
-console.log(target.value);
+
       setFormState({
          ...FormState,
          [target.name]: target.value
@@ -86,12 +86,8 @@ console.log(target.value);
    }
 
 
-   const BotonActivo = () => {
-      setActivo(Activo === !false)
-   }
-
-
    return (
+
       <Container component='main' maxWidth='xs'>
          <div className={classes.paper}>
             <form className={classes.form} noValidate>
@@ -258,7 +254,7 @@ console.log(target.value);
                            />
                         </Grid>
                         <Grid item xs={12} sm={6}>
-                        <Controls.Input
+                           <Controls.Input
                               type="text"
                               className="form-control"
                               autoComplete='col'
@@ -273,7 +269,7 @@ console.log(target.value);
                            />
                         </Grid>
                         <Grid item xs={12} sm={6}>
-                        <Controls.Input
+                           <Controls.Input
                               type="text"
                               className="form-control"
                               required
@@ -287,7 +283,7 @@ console.log(target.value);
                            />
                         </Grid>
                         <Grid item xs={12} sm={6}>
-                        <Controls.Input
+                           <Controls.Input
                               type="text"
                               className="form-control"
                               required
@@ -301,7 +297,7 @@ console.log(target.value);
                            />
                         </Grid>
                         <Grid item xs={12} sm={6}>
-                        <Controls.Input
+                           <Controls.Input
                               type="text"
                               className="form-control"
                               required
@@ -318,23 +314,23 @@ console.log(target.value);
                   </div>
                }
                {paso === 2 &&
+                  <DatosUsuario datos={FormState} />
+
+               }
+               {paso === 3 &&
                   <div>
                      <Grid item xs={12}>
                         <FormControlLabel
                            control={
                               <Checkbox value='allowExtraEmails' color='primary' />
                            }
-                           label='Este es un mensaje de prueba para los terminos y condiciones'
                         />
+                        <a target="_blank" href="https://ventas.casa/avisodeprivacidad.html" rel="noopener noreferrer">Politica de privacidad</a>
                      </Grid>
                   </div>
                }
-               {paso === 3 &&
-                  <DatosUsuario />
-               }
-
-
                <Button
+                  disabled={paso === 0}
                   disableElevation
                   onClick={previous}
                   type='button'
@@ -343,8 +339,10 @@ console.log(target.value);
                />
 
 
+
+
                <Button
-                  disabled={!BotonActivo}
+                  disabled={paso === 4}
                   disableElevation
                   onClick={next}
                   type='button'

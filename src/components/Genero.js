@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -18,11 +18,11 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Genero() {
   const classes = useStyles();
-  const [age, setAge] = React.useState('');
-  const [open, setOpen] = React.useState(false);
+  const [genero, setGenero] = useState('');
+  const [open, setOpen] = useState(false);
 
   const handleChange = (event) => {
-    setAge(event.target.value);
+    setGenero(event.target.value);
   };
 
   const handleClose = () => {
@@ -32,6 +32,8 @@ export default function Genero() {
   const handleOpen = () => {
     setOpen(true);
   };
+
+  
 
   return (
     <div>
@@ -43,11 +45,11 @@ export default function Genero() {
           open={open}
           onClose={handleClose}
           onOpen={handleOpen}
-          value={age}
+          value={genero}
           onChange={handleChange}
         >
-          <MenuItem value={10}>Masculino</MenuItem>
-          <MenuItem value={20}>Femenino</MenuItem>  
+          <MenuItem value='masculino'>Masculino</MenuItem>
+          <MenuItem value='femenino'>Femenino</MenuItem>  
         </Select>
       </FormControl>
     </div>

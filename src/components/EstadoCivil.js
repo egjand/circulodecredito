@@ -18,11 +18,11 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Estado() {
   const classes = useStyles();
-  const [age, setAge] = React.useState('');
+  const [estado, setEstado] = React.useState('');
   const [open, setOpen] = React.useState(false);
 
   const handleChange = (event) => {
-    setAge(event.target.value);
+    setEstado(event.target.value);
   };
 
   const handleClose = () => {
@@ -43,14 +43,14 @@ export default function Estado() {
           open={open}
           onClose={handleClose}
           onOpen={handleOpen}
-          value={age}
+          value={estado}
           onChange={handleChange}
         >
-          <MenuItem value={10}>Soltero/a</MenuItem>
-          <MenuItem value={20}>Casado/a</MenuItem> 
-          <MenuItem value={30}>Divorciado/a</MenuItem>
-          <MenuItem value={40}>Viudo/a</MenuItem>
-          <MenuItem value={50}>Union Libre</MenuItem>    
+          <MenuItem value='soltero/a'>Soltero/a</MenuItem>
+          <MenuItem value='casado/a'>Casado/a</MenuItem> 
+          <MenuItem value='divorciado/a'>Divorciado/a</MenuItem>
+          <MenuItem value='viudo/a'>Viudo/a</MenuItem>
+          <MenuItem value='union_libre'>Union Libre</MenuItem>    
         </Select>
       </FormControl>
     </div>
