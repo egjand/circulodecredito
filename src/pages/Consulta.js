@@ -52,18 +52,31 @@ export default function Consulta({ value = 0 }, props) {
       municipio: "",
       ciudad: "",
       estado: "",
+      rfc: "",
    })
 
    const { primer_nombre, segundo_nombre, apellido_paterno, apellido_materno, fecha_nacimiento, calle, numero_exterior, numero_interior,
-      codigo_postal, telefono_cel, colonia, municipio, ciudad, estado } = FormState;
+      codigo_postal, telefono_cel, colonia, municipio, ciudad, estado,rfc } = FormState;
    const classes = useStyles();
 
 
 
    useEffect(() => {
+      
+      conexion()
 
    }, []);
 
+   const conexion = async() =>{
+      
+     const url = 'http://localhost/creditos/consulta'
+    const res = await fetch(url)
+    const data = await res.json()
+
+    console.log(data);
+     
+   }
+   
    const previous = (e) => {
 
       setPaso(paso - 1);
@@ -85,12 +98,37 @@ export default function Consulta({ value = 0 }, props) {
 
    }
 
+   const handleSubmit = () => {
+
+      fetch('http://localhost/creditos/consulta', {
+        body: JSON.stringify(this.state),
+        cache: 'no-cache',
+        credentials: 'same-Origin',
+        headers: {
+            'content-type': 'application/json'
+        },
+        method: 'POST',
+        mode: 'cors',
+        redirect: 'follow',
+        referrer: 'no-referrer',
+    })
+        .then(function (response) {
+            console.log(response);
+            if (response.status === 200) {
+                alert('Saved');
+            } else {
+                alert('Issues saving');
+            }
+        });
+
+   }
+
 
    return (
 
       <Container component='main' maxWidth='xs'>
          <div className={classes.paper}>
-            <form className={classes.form} noValidate>
+            <form onSubmit={handleSubmit}  className={classes.form} noValidate>
 
                {paso === 0 &&
                   <div>
@@ -157,7 +195,7 @@ export default function Consulta({ value = 0 }, props) {
                         <Genero />
                         <Estado />
 
-                        <Grid item xs={12}>
+                        <Grid item xs={12} sm={6}>
                            <Controls.Input
                               type="text"
                               className="form-control"
@@ -168,6 +206,20 @@ export default function Consulta({ value = 0 }, props) {
                               variant='standard'
                               autoComplete='email'
                               value={fecha_nacimiento}
+                              onChange={handleInputChange}
+                           />
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                        <Controls.Input
+                              type="text"
+                              className="form-control"
+                              required
+                              fullWidth
+                              name="rfc"
+                              label='R.F.C'
+                              variant='standard'
+                              autoComplete='RFC'
+                              value={rfc}
                               onChange={handleInputChange}
                            />
                         </Grid>
@@ -349,6 +401,8 @@ export default function Consulta({ value = 0 }, props) {
                   variant='contained'
                   text='Siguiente'
                />
+
+               <input type="Submit" />
 
             </form>
          </div>

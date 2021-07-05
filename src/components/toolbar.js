@@ -1,4 +1,4 @@
-import { useState } from 'react';
+
 import logopng from '../img/logo/logo.jpg';
 import {
    AppBar,
@@ -7,8 +7,6 @@ import {
    makeStyles,
 } from '@material-ui/core';
 import { withRouter } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { logout } from '../redux/actions/auth-action';
 
 const useStyles = makeStyles(theme => ({
    logo: {
@@ -98,7 +96,6 @@ const useStyles = makeStyles(theme => ({
  */
 const Menu = withRouter(({ history, classnames, open, setOpen }) => {
    const classes = useStyles();
-   const dispatch = useDispatch();
    //correcting acitve tabs on refreshing
    /* useEffect(() => {
       const path = history.location.pathname;
@@ -116,7 +113,7 @@ const Menu = withRouter(({ history, classnames, open, setOpen }) => {
                onClick={() => setOpen(!open)}>
                <MenuIcon />
             </IconButton> */}
-            <img src={logopng} className={classes.logo}/>
+            <img src={logopng} className={classes.logo} />
             <Grid
                container
                spacing={3}

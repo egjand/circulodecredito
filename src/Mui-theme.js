@@ -103,14 +103,14 @@ const useToggleTheme = () => {
          overrides:
             type === 'dark'
                ? {
-                    MuiCssBaseline: {
-                       '@global': {
-                          body: {
-                             backgroundColor: '#212121'
-                          }
-                       }
-                    }
-                 }
+                  MuiCssBaseline: {
+                     '@global': {
+                        body: {
+                           backgroundColor: '#212121'
+                        }
+                     }
+                  }
+               }
                : ''
       };
       setTheme(updatedTheme);
